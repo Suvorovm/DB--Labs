@@ -1,5 +1,5 @@
 
-drop table if exists booking;
+drop table if exists booking;    
 drop table if exists feedback;
 drop table if exists include_service_number;
 drop table if exists bilt_position;
