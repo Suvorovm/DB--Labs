@@ -124,7 +124,7 @@ CREATE TABLE Worker
 	passport             varchar(10)  NOT NULL ,
 	address              varchar(64)  NOT NULL ,
 	itn                  varchar(64)  NOT NULL ,
-	sallary				integer not null
+	sallary				 integer not null,
 );
 
 CREATE TABLE Bilt_position
