@@ -18,8 +18,11 @@ drop table if exists status_booking;
 drop table if exists type_booking;
 drop table if exists worker;
 
-
-
+--truncate bill restart identity cascade;
+--truncate contract restart identity cascade;
+--truncate booking restart identity cascade;
+--truncate status_booking restart identity cascade;
+--truncate client_booking restart identity cascade;
 CREATE TABLE Bill
 ( 
 	id_bill              serial primary key,
@@ -173,3 +176,19 @@ create table Service_for_room(
 	id_service integer references service(id_service)
 );
 
+select * from client;
+select * from worker;
+select * from ur_person;
+select * from fiz_person;
+
+select * from feedback;
+
+select * from room;
+select * from build;
+select * from service_for_room;
+
+
+
+select * from service;
+select * from type_booking;
+select * from disscount;
