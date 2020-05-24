@@ -287,6 +287,7 @@ while( i < contract_count):
     cursor.execute(query)
     conn.commit()
 
+    status = random.randint(1,3)
     query = f"insert into booking (id_contract, id_status, settlement_time, departure_time, booking_time, id_room) values" \
             f"({i}," \
             f"{status}," \
@@ -297,7 +298,7 @@ while( i < contract_count):
     cursor.execute(query)
     conn.commit()
     i+=1
-    status+=1
+   
 
 #заполение клиент-бронирование
 
