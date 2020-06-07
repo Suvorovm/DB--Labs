@@ -173,3 +173,7 @@ create table Service_for_room(
 	id_service integer references service(id_service)
 );
 
+
+
+alter table bilt_position add column id_room INTEGER  references room(id_room);
+alter table bilt_position add column with_discount money;
