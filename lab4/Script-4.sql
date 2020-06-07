@@ -82,16 +82,40 @@ create or replace function room_in_bill() RETURNS TRIGGER AS $body$
 	declare
 		cost_room money;
 		bill_id int;
+		bilt_position_id integer;
+		is_fiz_person  bool;
+		is_check integer;
 	begin
+		
 		select into bill_id id_bill
 			from contract
 			inner join booking on booking.id_contract = contract.id_contract
 				where booking.id_contract = new.id_contract;
+			
+		select into is_check client.id_client from contract
+			inner join bill on bill.id_bill = contract.id_bill
+			inner join client on client.id_client = contract.id_client
+			inner join fiz_person on fiz_person.id_client = client.id_client
+			where bill.id_bill = bill_id;
+		
+		if( is_check is NULL) then
+		  	is_fiz_person = false;
+		  else
+		  	is_fiz_person = true;
+		  end if;
+			
 		select into cost_room room_cost
 			from room
 				where room.id_room = new.id_room;	
 		insert into bilt_position(id_bill,id_disscount,without_vat,without_disscount, id_room)
-		values(bill_id,7,cost_room,cost_room,new.id_room);
+			values(bill_id,7,cost_room,cost_room,new.id_room) 
+		returning id_bilt_position into bilt_position_id;
+	--id_room_input integer,
+	--id_service_input integer,
+	--id_discount_input integer,
+	--is_fiz_person_input bool,
+	--bilt_position_id integer
+	perform update_cost_bilt_position(NEW.id_room,0,7,is_fiz_person,bilt_position_id);
 	return NULL;
 	end
 $body$ LANGUAGE plpgsql;
@@ -99,7 +123,7 @@ $body$ LANGUAGE plpgsql;
 create trigger add_room_bill
 after insert on booking for each row execute procedure room_in_bill();
 ---Функция для бронирования номера
-select booking_room('15.05.2020','11.06.2020',303,621,2);
+select booking_room('15.05.2020','11.06.2020',409,621,2);
 --##################################################################################################3
 
 
