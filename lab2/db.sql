@@ -133,7 +133,8 @@ CREATE TABLE Bilt_position
 	id_bill              integer  references  bill(id_bill) ,
 	id_disscount         integer  references disscount(id_disscount) ,
 	without_VAT          money  NOT NULL ,
-	without_disscount    money  NOT NULL 
+	without_disscount    money  NOT null,
+	with_discount        money not null
 );
 
 CREATE TABLE Contract
