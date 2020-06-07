@@ -1,4 +1,8 @@
 
+
+
+select is_avaibale_room('15.05.2020','11.06.2020',407);
+
 -- Запрос на вывод номеров свободных в данный промежуток времени
 SELECT Room.Room_number AS "Свободные номера",
 	   Build.Prestige AS "Класс номера",
@@ -21,6 +25,7 @@ WHERE Booking.id_booking is NULL
 group BY Room.Room_number, Build.Prestige, Room.Room_cost
 
 
+select booking_room('15.05.2020','11.06.2020',407,621,1);
 
 --Разбиение клиентов на возрастные группы
 SELECT
