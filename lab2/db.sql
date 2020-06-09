@@ -133,8 +133,13 @@ CREATE TABLE Bilt_position
 	id_bill              integer  references  bill(id_bill) ,
 	id_disscount         integer  references disscount(id_disscount) ,
 	without_VAT          money  NOT NULL ,
+<<<<<<< HEAD
 	without_disscount    money  NOT NULL ,
 	id_room              integer references room(id_room)
+=======
+	without_disscount    money  NOT null,
+	with_discount        money not null
+>>>>>>> 255420c3d113e3a9a8326a8a55d8d928b5e74435
 );
 
 CREATE TABLE Contract
@@ -174,3 +179,7 @@ create table Service_for_room(
 	id_service integer references service(id_service)
 );
 
+
+
+alter table bilt_position add column id_room INTEGER  references room(id_room);
+alter table bilt_position add column with_discount money;
