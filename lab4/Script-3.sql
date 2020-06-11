@@ -1,15 +1,101 @@
 ---1 сложнай процедура на добавление
 -- 2 хранимые процедуры
+--##################################################################################################3
+--Вычисление суммы услуги или номера с учетом скидок
+create or replace function update_cost_bilt_position(
+	id_room_input integer,
+	id_service_input integer,
+	id_discount_input integer,
+	is_fiz_person_input bool,
+	bilt_position_id integer
+)
+RETURNS integer AS $body$
 
+declare
+	service_cost_find decimal;
+    room_cost decimal;
+	persent_discount_person decimal;
+    persent_discount_legal decimal;
+    target_discount decimal;
+	cost_with_discount decimal;
+    cost_with_out_nds decimal;
+begin
+
+	if (id_room_input = 0 and id_service_input = 0) then
+	    return 0;
+    end if;
+
+	if (not exists( select * from disscount where id_disscount = id_discount_input))then
+	    raise log 'there is no discount';
+        return 0;
+    else
+	   select into persent_discount_person disscount.diss_person from disscount
+	            where id_disscount = id_discount_input;
+
+	    if (is_fiz_person_input) then
+            target_discount = persent_discount_person;
+        else
+            select into target_discount  disscount.diss_legal
+            from disscount
+                    where id_disscount = id_discount_input;
+	    end if;
+    end if;
+
+	if(id_room_input = 0) then
+
+	    if( not exists(select * from service where service.id_service = id_service_input)) then
+	        raise log 'there is no service';
+	        return 0;
+        end if;
+         select into service_cost_find  service.service_cost  from service
+	        where service.id_service = id_service_input;
+
+        cost_with_discount := service_cost_find - (service_cost_find / 100) * target_discount;
+	    cost_with_out_nds := service_cost_find - (service_cost_find /100) * 18;
+	    update bilt_position set 
+		    without_vat=cost_with_out_nds,
+		    without_disscount=service_cost_find,
+		    with_discount=cost_with_discount
+	    where bilt_position.id_bilt_position = bilt_position_id;
+	    return 1;
+    else
+	    if( not exists(select * from room where room.id_room = id_room_input)) then
+	        raise log 'there is no rooms';
+	        return 0;
+        end if;
+        select room.room_cost into  room_cost from room
+	        where room.id_room = id_room_input;
+	    cost_with_discount = room_cost - (room_cost / 100) * target_discount;
+	    cost_with_out_nds = room_cost - (room_cost /100) * 18;
+	    update bilt_position set
+		    without_vat=cost_with_out_nds,
+		    without_disscount=room_cost,
+		    with_discount=cost_with_discount
+	    where bilt_position.id_bilt_position = bilt_position_id;
+	    return 1;
+	end if;
+
+	return 0;
+end
+$body$
+    LANGUAGE PLpgSQL;
+
+
+ 
+select update_cost_bilt_position(2,0,5,true,2);
+
+select * from bilt_position
+where bilt_position.id_bilt_position = 2;
 --ПРедоставление итоговой суммы постояльцу
+--drop function return_bill(varchar,varchar,varchar);
 CREATE OR REPLACE FUNCTION return_bill(
 first_name varchar, 
 second_name varchar, 
 last_name varchar)
-RETURNS integer AS $body$
+RETURNS decimal AS $body$
 
 declare 
-ammnt money;
+ammnt decimal;
 id_contr int;
 id_bil int;
 begin
@@ -26,18 +112,18 @@ begin
 						);
 
 select into ammnt sum(without_vat)
-from bilt_position
-where id_bill = (select id_bill from contract where id_contract = id_contr );
+	from bilt_position
+	where id_bill = (select id_bill from contract where id_contract = id_contr );
 
 select into id_bil id_bill 
-from bill
-where id_bill = (select id_bill from contract where id_contract = id_contr );
+	from bill
+	where id_bill = (select id_bill from contract where id_contract = id_contr );
 
 update bill
-set ammount = ammnt
-where id_bill = id_bil;
+	set ammount = ammnt
+	where id_bill = id_bil;
 
-return 1;
+return ammnt;
 end
 $body$ LANGUAGE 'plpgsql';
 
@@ -60,6 +146,15 @@ select create_contract_with_ur(
 '404',
 40
 );
+select contract.id_contract,
+		contract.start_date,
+		contract.end_date,
+		ur_person.name_organization,
+		contract.contract_number,
+		contract.id_worker from contract
+inner join client on client.id_client = contract.id_client
+inner join ur_person on ur_person.id_client = client.id_client
+where contract.id_contract = 1004;
 create or replace function create_contract_with_ur(
 	adrss varchar,
 	phone varchar,
@@ -155,10 +250,18 @@ return 0;
 end
 $body$ LANGUAGE 'plpgsql';
 
-select is_avaibale_room('15.05.2020','11.06.2020',407);
+select is_avaibale_room('15.05.2020','11.06.2020',409);
 
 
-select booking_room('15.05.2020','11.06.2020',407,621,3);
+
+select booking_room('15.05.2020','11.06.2020',407,622,2);
+select booking_room('15.05.2020','11.06.2020',409,4,2);
+
+select room.room_number,booking,settlement_time, booking.departure_time
+from booking
+inner join contract on contract.id_contract = booking.id_contract
+inner join room on room.id_room = booking.id_room
+where contract.id_contract = 622
 --------------------------------------------------------------
 ---Бронирование номера----------------------------------------
 --------------------------------------------------------------
