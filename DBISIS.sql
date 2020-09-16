@@ -5,8 +5,6 @@ drop table if exists Bilt_position_service;
 drop table if exists service_for_room;
 drop table if exists service;
 drop table if exists booking; 
-drop table if exists room;
-drop table if exists build;
 drop table if exists contract;
 drop table if exists bilt_position;
 drop table if exists bill;
@@ -17,6 +15,8 @@ drop table if exists disscount;
 drop table if exists status_booking;
 drop table if exists type_booking;
 drop table if exists worker;
+drop table if exists room;
+drop table if exists build;
 
 
 
@@ -117,14 +117,14 @@ CREATE TABLE Worker
 	id_worker            serial primary key,
 	surname              varchar(20)  NOT NULL ,
 	sorename             varchar(20)  NOT NULL ,
-	lastname             svarchar(20)  NULL ,
+	lastname             varchar(20)  NULL ,
 	id_parent            integer  references worker(id_worker),
 	employment_number    integer  NOT NULL ,
 	birth_date           timestamp NOT NULL ,
 	passport             varchar(10)  NOT NULL ,
 	address              varchar(64)  NOT NULL ,
 	itn                  varchar(64)  NOT NULL ,
-	sallary				 integer not null,
+	sallary				 integer not null
 );
 
 CREATE TABLE Bilt_position
@@ -133,9 +133,9 @@ CREATE TABLE Bilt_position
 	id_bill              integer  references  bill(id_bill) ,
 	id_disscount         integer  references disscount(id_disscount) ,
 	without_VAT          money  NOT NULL ,
-	id_room              integer references room(id_room)
+	id_room              integer references room(id_room),
 	without_disscount    money  NOT null,
-	with_discount        money not null,
+	with_discount        money not null
 );
 
 CREATE TABLE Contract
@@ -170,8 +170,9 @@ create table Bilt_position_service(
 	id_service integer references service(id_service)
 );
 
+
 create table Service_for_room(
+	id_service_for_room serial primary key,
 	id_room integer references room(id_room),
 	id_service integer references service(id_service)
 );
-
