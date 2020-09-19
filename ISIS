@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-09-19T16:07:13.623Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 YaBrowser/20.4.3.268 (beta) Yowser/2.5 Safari/537.36" etag="ZmBgtPmFRKH1NzKEpq2E" version="13.7.2" type="github">
+<mxfile host="app.diagrams.net" modified="2020-09-19T16:11:22.131Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 YaBrowser/20.4.3.268 (beta) Yowser/2.5 Safari/537.36" etag="R474VyIFjmd3qOZVMYgs" version="13.7.2" type="github">
   <diagram id="mMYUDQCK9vZuDB9S1n3o" name="Page-1">
     <mxGraphModel dx="2012" dy="1791" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -219,14 +219,17 @@
         <mxCell id="CtyjQxz57AjTpVeoklYc-73" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;dashPattern=1 1;" edge="1" parent="1" source="CtyjQxz57AjTpVeoklYc-69" target="CtyjQxz57AjTpVeoklYc-72">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="CtyjQxz57AjTpVeoklYc-129" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;dashPattern=1 1;" edge="1" parent="1" source="CtyjQxz57AjTpVeoklYc-69" target="CtyjQxz57AjTpVeoklYc-128">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="CtyjQxz57AjTpVeoklYc-69" value="Анализировать ЦА" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="10" y="530" width="115" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="CtyjQxz57AjTpVeoklYc-70" value="Получить список всех клиентов" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="CtyjQxz57AjTpVeoklYc-70" value="Предоставить список всех клиентов" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="135" y="450" width="135" height="90" as="geometry" />
         </mxCell>
         <mxCell id="CtyjQxz57AjTpVeoklYc-72" value="Разбить постояльцев на возрастные группы" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="160" y="555" width="135" height="90" as="geometry" />
+          <mxGeometry x="270" y="550" width="135" height="90" as="geometry" />
         </mxCell>
         <mxCell id="CtyjQxz57AjTpVeoklYc-79" value="Изменение данных о номере" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="1170" y="300" width="131" height="60" as="geometry" />
@@ -298,6 +301,9 @@
         </mxCell>
         <mxCell id="CtyjQxz57AjTpVeoklYc-122" value="Указать причину расторжения" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="859" y="180" width="121" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CtyjQxz57AjTpVeoklYc-128" value="Написать отчет" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="660" width="115" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
