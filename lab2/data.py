@@ -2,7 +2,7 @@ import random
 import time
 import psycopg2
 import datetime
-conn = psycopg2.connect(dbname='hotelaaa', user='admin',
+conn = psycopg2.connect(dbname='hetelaaa', user='admin',
                         password='samihad228', host='localhost')
 cursor = conn.cursor()
 
@@ -30,10 +30,10 @@ count_id = 1
 street = ('ул.Московская ','ул.Дмитриевская','пр.Победы ','пр.Строителей','ул.Ладожская','ул.Циолковского','ул.Водонаева ','ул.Октябрьская','ул.Ленина','ул.Сталинская','площадь Рефолюции','ул.Дачная','ул.Радужная','ул.Сиреневая','ул.Хорошая','ул.Виражная','ул.Гагарина')
 city=('г.Москва','г.Пенза','г.Воронеж','г.Санкт-Петербург','г.Витебск','г.Казань','г.Сочи','г.Иваново','г.Мурманск','г.Волгоград','г.Ростов','г.Кузнецк','г.Сургут','г.Анадырь')
 ur_name=['Не юр.лицо','Тинькофф','Microsoft','Apple','YouTube','Mailru','Газпром','Лукойл','Роснефть','ИнтерЭйр','Tortuga','Codeinside','Vigrom','OpenSolutions','Bitgames','Лейхтрум','Молескинес','Пож-центр','Intel','AMD','Foxconn','Qualcomm','Finmax','PickPoint','Ponyexpress','Почта России','Aliexpress']
-
-#Добавление корпусов
-cursor.execute("INSERT INTO Build(Build_adress,Prestige,Build_number) VALUES ('ул. Полярная 4',2,4),('ул. Полярная 3',3,3),('ул. Полярная 2',4,2),('ул. Полярная 1',5,1);");
-conn.commit()
+#
+# #Добавление корпусов
+# cursor.execute("INSERT INTO Build(Build_adress,Prestige,Build_number) VALUES ('ул. Полярная 4',2,4),('ул. Полярная 3',3,3),('ул. Полярная 2',4,2),('ул. Полярная 1',5,1);");
+# conn.commit()
 
 #Заполнение клиента
 for i in range(800):
@@ -177,6 +177,7 @@ cursor.execute("SELECT COUNT(*) FROM type_booking;")
 ver = cursor.fetchall()
 for row in ver:
     type_booking = int(row[0])
+    print("type_booking = ", type_booking)
 conn.commit()
 
 cursor.execute("SELECT COUNT(*) FROM room;")
@@ -332,11 +333,12 @@ i = 1
 while(i < bill_count):
 
     money = random.randint(300,1000)
-    query = f"insert into bilt_position(id_bill,id_disscount,without_vat,without_disscount) values" \
+    query = f"insert into bilt_position(id_bill,id_disscount,without_vat,without_disscount,with_discount) values" \
             f"({i}," \
             f"{random.randint(1,disscount_count)}," \
             f"{money}," \
-            f"{money+ random.randint(100,500)});"
+            f"{money+ random.randint(100,500)}," \
+            f"{money});"
     cursor.execute(query)
     conn.commit()
     coin = random.randint(1, 10)
