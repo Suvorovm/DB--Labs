@@ -2,7 +2,7 @@ import random
 import time
 import psycopg2
 import datetime
-conn = psycopg2.connect(dbname='hetelaaa', user='admin',
+conn = psycopg2.connect(dbname='hotelaaa', user='admin',
                         password='samihad228', host='localhost')
 cursor = conn.cursor()
 
@@ -26,9 +26,6 @@ def random_date(start, end, prop):
     return str_time_prop(start, end, '%d.%m.%Y', prop)
 
 
-
-
-
 first_name_man = ('Халим','Максим','Ильяс','Андрей','Святослав','Никита','Петр','Георгий','Руслан','Денис','Михаил','Рустам','Дмитрий','Егор','Кирилл','Валерий','Александр','Сергей','Иван','Виктор','Юрий','Игорь')
 second_name_man=('Лысенко','Гаврилов','Данилов','Красовский','Дюжев','Макаров','Сидоров','Сенченко','Попов','Земнухов','Иванов','Петров','Орлушин','Чистяков','Русин','Хамзин','Суворов','Хусаинов','Пантелеев','Данилов','Назаров','Назаркин','Мельников','Макаров','Якомазов','Луба','Кулишов','Беляков')
 last_name_man = ('Халимович','Максимович','Ильясович','Андреевич','Святославович','Никитич','Георгиевич','Русланович','Денисович','Михайлович','Рустамович','Дмитриевич','Егорович','Кириллович','Валерьевич','Александрович','Сергеевич','Иванович','Викторович','Юрьевич','Игоревич')
@@ -38,41 +35,26 @@ count_id = 1
 street = ('ул.Московская ','ул.Дмитриевская','пр.Победы ','пр.Строителей','ул.Ладожская','ул.Циолковского','ул.Водонаева ','ул.Октябрьская','ул.Ленина','ул.Сталинская','площадь Рефолюции','ул.Дачная','ул.Радужная','ул.Сиреневая','ул.Хорошая','ул.Виражная','ул.Гагарина')
 city=('г.Москва','г.Пенза','г.Воронеж','г.Санкт-Петербург','г.Витебск','г.Казань','г.Сочи','г.Иваново','г.Мурманск','г.Волгоград','г.Ростов','г.Кузнецк','г.Сургут','г.Анадырь')
 ur_name=['Не юр.лицо','Тинькофф','Microsoft','Apple','YouTube','Mailru','Газпром','Лукойл','Роснефть','ИнтерЭйр','Tortuga','Codeinside','Vigrom','OpenSolutions','Bitgames','Лейхтрум','Молескинес','Пож-центр','Intel','AMD','Foxconn','Qualcomm','Finmax','PickPoint','Ponyexpress','Почта России','Aliexpress']
-#
-# #Добавление корпусов
-# cursor.execute("INSERT INTO Build(Build_adress,Prestige,Build_number) VALUES ('ул. Полярная 4',2,4),('ул. Полярная 3',3,3),('ул. Полярная 2',4,2),('ул. Полярная 1',5,1);");
-# conn.commit()
 
-#Заполнение клиента
-for i in range(800):
-
-    addres = f'{random.choice(city)}, {random.choice(street)} {random.randint(1,100)}, кв.{random.randint(1,500)}'
-
-    number = str(random.randint(11111111111,99999999999))
-    query = f'INSERT INTO Client(Adress, Phone_number) values(\'{addres}\',\'{number}\')'
-    cursor.execute(query)
-    conn.commit()
 
 #Заполнение юр лица
 for i in range(len(ur_name)):
-    query = f'INSERT INTO UR_Person(id_client,ITN,Name_organization) values ({count_id},\'{random.randint(1000000000,9999999999)}\',\'{ur_name[i]}\')'
+    query = f'INSERT INTO UR_Person(id_ur_person,int,Name_organization) values ({count_id},\'{random.randint(1000000000,9999999999)}\',\'{ur_name[i]}\')'
     cursor.execute(query)
     conn.commit()
     count_id += 1
 
-#заполение физ_лица от юрлица
-for i in range(320):
-    query = f'INSERT INTO fiz_person(id_client,id_ur_person, Surname, forename, Lastname, Birth_date, Passport) VALUES({count_id},{random.randint(1,16)},\'{random.choice(second_name_man)}\',\'{random.choice(first_name_man)}\',\'{random.choice(last_name_man)}\',\'{random_date("1.1.1950", "1.1.2005", random.random())}\',\'{str(random.randint(1000000000, 9999999999))}\')'
-    cursor.execute(query)
-    conn.commit()
-    count_id+=1
-#заполение физ_лица
-for i in range(180):
-    query = f'INSERT INTO fiz_person(id_client,id_ur_person, Surname, forename, Lastname, Birth_date, Passport) VALUES({count_id},{1},\'{random.choice(second_name_man)}\',\'{random.choice(first_name_man)}\',\'{random.choice(last_name_man)}\',\'{random_date("1.1.1950", "1.1.2005", random.random())}\',\'{str(random.randint(1000000000, 9999999999))}\')'
-    cursor.execute(query)
-    conn.commit()
-    count_id+=1
 
+
+count_id = 1
+#заполение клиента
+for i in range(1000):
+    addres = f'{random.choice(city)}, {random.choice(street)} {random.randint(1, 100)}, кв.{random.randint(1, 500)}'
+    number = str(random.randint(11111111111, 99999999999))
+    query = f'INSERT INTO client(id_client,id_ur_person, Surname, name, Lastname, Birth_date, Passport,Adress, Phone_number) VALUES({count_id},{random.randint(1,16)},\'{random.choice(second_name_man)}\',\'{random.choice(first_name_man)}\',\'{random.choice(last_name_man)}\',\'{random_date("1.1.1950", "1.1.2005", random.random())}\',\'{str(random.randint(1000000000, 9999999999))}\',\'{addres}\',\'{number}\')'
+    cursor.execute(query)
+    conn.commit()
+    count_id+=1
 #Заполнение отзывов
 cursor.execute("INSERT INTO FeedBack(id_client,Mark,Descroption) VALUES "
                "(1,4,'Неплохое обслуживание Юр лиц.'),"

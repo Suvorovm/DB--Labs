@@ -1,16 +1,16 @@
- --1) Запрос на выборку самый популярных доп. услуг, с количеством принесенной прибыли.
+ --1) пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
  GO
-SELECT Bilt_position.id_option_service as 'ID', option_service_name as 'Название услуги',
- COUNT(*) * Option_cost  AS 'Прибыль'
+SELECT Bilt_position.id_option_service as 'ID', option_service_name as 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ',
+ COUNT(*) * Option_cost  AS 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ'
 FROM Bilt_position 
 join Optional_service on Optional_service.id_option_service=Bilt_position.id_option_service
 GROUP BY Bilt_position.id_option_service,option_service_name,Option_cost
 ORDER BY COUNT(*) * Option_cost DESC
 
---2) Запрос на полученную с номеров прибыль, сгруппированное по классам номеров 
+--2) пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
 
 GO
-select Prestige as 'Класс', Sum(Room.Room_cost) as 'Цена' from Build
+select Prestige as 'пїЅпїЅпїЅпїЅпїЅ', Sum(Room.Room_cost) as 'пїЅпїЅпїЅпїЅ' from Build
 	join Room on Room.id_Build = Build.id_Build
 	join Booking on Booking.id_room = Room.id_room
 	join Contract on Contract.Id_contract = Booking.Id_contract
@@ -20,12 +20,12 @@ select Prestige as 'Класс', Sum(Room.Room_cost) as 'Цена' from Build
 
 GO
 
---Чистая прибыль полученная за заданный промежуток времени.
---3) (Сумма полученная за номера + доп. услуги - зарплата рабочих - стоимость доп. услуг)
+--пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+--3) (пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ + пїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ)
 
 GO
 select sum(Ammount) - sum(Include_service.Cost)
-- sum(Worker.Sallary) - SUM(Optional_service.Option_cost_for_hotel) as 'Чистая прибыль'
+- sum(Worker.Sallary) - SUM(Optional_service.Option_cost_for_hotel) as 'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ'
   from Bill
 join Contract on Contract.id_bill = Bill.id_bill
 join Bilt_position on Bilt_position.id_bill = Bill.id_bill
@@ -39,22 +39,22 @@ where
      Contract.Start_date>='2019-11-30T00:00:00' 
 	  AND Contract.End_date<='2020-01-05T00:00:00'
 
---4)Выборка самых прибыльных  месяцев в данных промежуток времени с выводом полученной прибыли за месяц.
+--4)пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ  пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 
-select YEAR(Contract.End_date) as 'Год',
-	   MONTH(Contract.End_date) as 'Номер месяца',
-       SUM(Bill.Ammount) as 'Прибыль' from Contract
+select YEAR(Contract.End_date) as 'пїЅпїЅпїЅ',
+	   MONTH(Contract.End_date) as 'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ',
+       SUM(Bill.Ammount) as 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ' from Contract
 	join Bill on Bill.id_bill = Contract.id_bill
 		where Contract.Start_date>='2019-11-30T00:00:00' 
 	  AND Contract.End_date<='2020-01-05T00:00:00'
 	  group by MONTH(Contract.End_date),YEAR(Contract.End_date)
 
--- 5) Выборка среднего и медианного числа дней  на которое был забронирован номер
+-- 5) пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ  пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 GO
 DECLARE @c BIGINT = (SELECT COUNT(*) FROM Booking);
 
-SELECT AVG(1.0 * val) as 'Медиана', 
-(select AVG(DATEDIFF(dayofyear,  Booking.Settlement_time,Booking.Departure_time)) from Booking) as 'Среднее'
+SELECT AVG(1.0 * val) as 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ', 
+(select AVG(DATEDIFF(dayofyear,  Booking.Settlement_time,Booking.Departure_time)) from Booking) as 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ'
 FROM (
     SELECT DATEDIFF(dayofyear,  Booking.Settlement_time,Booking.Departure_time) as val FROM Booking
      ORDER BY val
@@ -65,10 +65,10 @@ Go
 
 
 
---6)Выборка юр лиц с наибольшим количеством забронированных
--- номеров в заданный промежуток времени  с выводом суммы
+--6)пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ  пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 GO
-select UR_Person.Name_organization as 'название организации',Sum(Room.Room_cost) as 'Сумма' from UR_Person 
+select UR_Person.Name_organization as 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ',Sum(Room.Room_cost) as 'пїЅпїЅпїЅпїЅпїЅ' from UR_Person 
 	join Client on Client.id_client = UR_Person.id_client
 	join Contract on Contract.id_client = Client.id_client
 	join Booking on Booking.Id_contract = Contract.Id_contract
@@ -81,10 +81,10 @@ select UR_Person.Name_organization as 'название организации',Sum(Room.Room_cost)
 Go
 
 
---7) Выборка прибыли полученной от юр. лиц и от физ. лиц в заданный промежуток времени
+--7) пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ. пїЅпїЅпїЅ пїЅ пїЅпїЅ пїЅпїЅпїЅ. пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 GO
- select Fiz_person.Name as 'Имя',Fiz_person.Surname as 'Фамилия',UR_Person.Name_organization as 'Название организации',SUM(Room.Room_cost) as 'Сумма'  from Contract
+ select Fiz_person.Name as 'пїЅпїЅпїЅ',Fiz_person.Surname as 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ',UR_Person.Name_organization as 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ',SUM(Room.Room_cost) as 'пїЅпїЅпїЅпїЅпїЅ'  from Contract
 	join Client on Client.id_client = Contract.id_client
 	 left join Fiz_person on Fiz_person.id_client = Client.id_client
 	 left join UR_Person on UR_Person.id_client = Client.id_client
@@ -104,10 +104,10 @@ select * from Build
 select * from Room
 select * from Contract
 
---8)Вывод количества купленных номеров в каждом договоре с ценой, которая была уплачена
-SELECT COUNT(Booking.id_booking) AS 'Кол-во номеров', 
-		Contract.Contract_number AS 'Номер договора' , 
-		Bill.Ammount AS 'Итог'
+--8)пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+SELECT COUNT(Booking.id_booking) AS 'пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ', 
+		Contract.Contract_number AS 'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ' , 
+		Bill.Ammount AS 'пїЅпїЅпїЅпїЅ'
 FROM Contract
 JOIN Booking ON Contract.Id_contract = Booking.Id_contract
 JOIN Bill  ON Contract.Id_bill = Bill.Id_bill
@@ -116,8 +116,8 @@ GROUP BY Contract.Contract_number, Bill.Ammount;
 --################################################################--
 --################################################################--
 --################################################################--
---Количество проживающих постояльцев в данный момент времени/ в определенный промежуток времени
-SELECT COUNT(id_booking) AS 'Количество проживающих'
+--пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ/ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+SELECT COUNT(id_booking) AS 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ'
 FROM Booking
 --WHERE Booking.Settlement_time > GETDATE() 
 --	  AND
@@ -126,40 +126,40 @@ WHERE Booking.Settlement_time BETWEEN '25.12.2019' AND '10.01.2020'
 	  AND
 	  Booking.Departure_time BETWEEN '25.12.2019' AND '10.01.2020'
 
---Вывод списка цен забронированных номеров со скидками для физ лиц и юр. лиц
-SELECT Room.Room_number AS 'Номер', 
-		Build.Prestige AS 'Класс номера', 
-		Disscount.Disscount_name AS 'Наименование скидки',
-		Room_cost - (Room_cost * 0.01 * Disscount.Diss_person) AS 'Цена со скидкой (Физ)',
-		Disscount.Diss_person AS 'Процент скидки (Физ)',
-		Room_cost - (Room_cost * 0.01 * Disscount.Diss_legal) AS 'Цена со скидкой (Юр)',
-		Disscount.Diss_legal AS 'Процент скидки (Юр)',
-		Room.Room_cost AS 'Цена номера'
+--пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅ. пїЅпїЅпїЅ
+SELECT Room.Room_number AS 'пїЅпїЅпїЅпїЅпїЅ', 
+		Build.Prestige AS 'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ', 
+		Disscount.Disscount_name AS 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ',
+		Room_cost - (Room_cost * 0.01 * Disscount.Diss_person) AS 'пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ)',
+		Disscount.Diss_person AS 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ)',
+		Room_cost - (Room_cost * 0.01 * Disscount.Diss_legal) AS 'пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ)',
+		Disscount.Diss_legal AS 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ)',
+		Room.Room_cost AS 'пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ'
 FROM Room
 JOIN Build ON Room.id_build = Build.id_build
 JOIN Bilt_position on Room.id_room = Bilt_position.id_room
 JOIN Disscount on Bilt_position.id_disscount = Disscount.id_disscount;
 
--- Частота посещений клиентов гостинницы
-SELECT COUNT(Contract.Id_contract) AS 'Количество посещений',UR_Person.Name_organization AS 'Юр.лицо', Fiz_person.Surname + ' ' + Fiz_person.Name AS 'Физ.лицо'
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+SELECT COUNT(Contract.Id_contract) AS 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ',UR_Person.Name_organization AS 'пїЅпїЅ.пїЅпїЅпїЅпїЅ', Fiz_person.Surname + ' ' + Fiz_person.Name AS 'пїЅпїЅпїЅ.пїЅпїЅпїЅпїЅ'
 FROM Client
 JOIN Contract ON  Contract.Id_client = Client.id_client
 LEFT JOIN Fiz_person ON  Fiz_person.id_client = Client.id_client
 LEFT JOIN UR_person ON  UR_Person.id_client = Client.id_client
 GROUP BY Fiz_person.Surname, Fiz_person.Name, UR_Person.Name_organization
 
---Узнать, какие отзывы чаще всего оставляют постояльцы
-SELECT COUNT(Mark) AS 'Количество отзывов', Mark AS 'Оценка'
+--пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+SELECT COUNT(Mark) AS 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ', Mark AS 'пїЅпїЅпїЅпїЅпїЅпїЅ'
 FROM Feedback
 GROUP BY Mark
 ORDER BY Mark DESC
 
 --#############################################################################--
 
--- Запрос на вывод номеров свободныхв данный промежуток времени
-SELECT Room.Room_number AS 'Свободные номера',
-	   Build.Prestige AS 'Класс номера', 
-	   Room.Room_cost AS 'Цена номера'
+-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+SELECT Room.Room_number AS 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ',
+	   Build.Prestige AS 'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ', 
+	   Room.Room_cost AS 'пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ'
 FROM Booking
 JOIN Room ON Booking.id_room = Room.id_room
 JOIN Build ON Build.id_Build = Room.id_Build
@@ -168,30 +168,30 @@ WHERE (Booking.Settlement_time BETWEEN '25.12.2019' AND '10.01.2020'
 	  Booking.Departure_time BETWEEN '25.12.2019' AND '10.01.2020')
 	  OR (Booking.Settlement_time IS NULL AND Booking.Departure_time IS NULL)
 UNION ALL
-SELECT Room.Room_number AS 'Свободные номера',
-	   Build.Prestige AS 'Класс номера', 
-	   Room.Room_cost AS 'Цена номера'
+SELECT Room.Room_number AS 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ',
+	   Build.Prestige AS 'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ', 
+	   Room.Room_cost AS 'пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ'
 FROM Room
 JOIN Build ON Build.id_Build = Room.id_Build
 LEFT JOIN Booking ON Booking.id_room = Room.id_room
 WHERE Booking.id_booking is NULL
 ORDER BY Room.Room_number, Build.Prestige
 
---Вывод клиента и всех забронированных им номеров
-SELECT Fiz_person.Surname + ' ' + Fiz_person.Name AS 'Клиент(Физ)', 
-       UR_Person.Name_organization AS 'Клиент(Юр)',
-	   Room.Room_number AS 'Номер комнаты',
-	   Booking.Settlement_time AS 'Время заселения',
-	   Booking.Departure_time AS 'Время выселения'
+--пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+SELECT Fiz_person.Surname + ' ' + Fiz_person.Name AS 'пїЅпїЅпїЅпїЅпїЅпїЅ(пїЅпїЅпїЅ)', 
+       UR_Person.Name_organization AS 'пїЅпїЅпїЅпїЅпїЅпїЅ(пїЅпїЅ)',
+	   Room.Room_number AS 'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ',
+	   Booking.Settlement_time AS 'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ',
+	   Booking.Departure_time AS 'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ'
 FROM Contract
 JOIN Client ON  Contract.Id_client = Client.id_client
 LEFT JOIN Fiz_person ON  Fiz_person.id_client = Client.id_client
 LEFT JOIN UR_person ON  UR_Person.id_client = Client.id_client
 JOIN Booking ON Booking.Id_contract = Contract.Id_contract
 JOIN Room ON Booking.id_room = Room.id_room
---добавить where  если надо для конкретного клиента
+--пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ where  пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
---Разбиение клиентов на возрастные группы
+--пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 SELECT 
 COUNT(CASE WHEN  Age < 18 THEN 1 END) AS '<18', 
 COUNT(CASE WHEN  Age > 19 AND Age < 25  THEN 1 END) AS '19-25', 
@@ -201,10 +201,10 @@ COUNT(CASE WHEN  Age > 65 THEN 1 END) '>65'
 FROM Fiz_person
 
 
---Вывод данных о сотруднике и клиенте, которые заключали договор
-SELECT Fiz_person.Surname + ' ' + Fiz_person.Name AS 'Клиент(Физ)', 
-	   UR_Person.Name_organization AS 'Клиент(Юр)',
-	   Worker.Surname + ' ' + Worker.Name AS 'Сотрудник'
+--пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+SELECT Fiz_person.Surname + ' ' + Fiz_person.Name AS 'пїЅпїЅпїЅпїЅпїЅпїЅ(пїЅпїЅпїЅ)', 
+	   UR_Person.Name_organization AS 'пїЅпїЅпїЅпїЅпїЅпїЅ(пїЅпїЅ)',
+	   Worker.Surname + ' ' + Worker.Name AS 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ'
 FROM Contract
 JOIN Client ON  Contract.Id_client = Client.id_client
 LEFT JOIN Fiz_person ON  Fiz_person.id_client = Client.id_client
@@ -212,10 +212,10 @@ LEFT JOIN UR_person ON  UR_Person.id_client = Client.id_client
 JOIN Worker ON Worker.id_worker = Contract.id_worker
 ORDER BY Worker.Surname
 
---Вывод клиентов, которые отменяли бронирование и сотрудника, который заключал договор с клиентом
-SELECT Fiz_person.Surname + ' ' + Fiz_person.Name AS 'Клиент(Физ)', 
-	   UR_Person.Name_organization AS 'Клиент(Юр)',
-	   Worker.Surname + ' ' + Worker.Name AS 'Сотрудник'
+--пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+SELECT Fiz_person.Surname + ' ' + Fiz_person.Name AS 'пїЅпїЅпїЅпїЅпїЅпїЅ(пїЅпїЅпїЅ)', 
+	   UR_Person.Name_organization AS 'пїЅпїЅпїЅпїЅпїЅпїЅ(пїЅпїЅ)',
+	   Worker.Surname + ' ' + Worker.Name AS 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ'
 FROM Contract
 JOIN Client ON  Contract.Id_client = Client.id_client
 LEFT JOIN Fiz_person ON  Fiz_person.id_client = Client.id_client
@@ -223,5 +223,5 @@ LEFT JOIN UR_person ON  UR_Person.id_client = Client.id_client
 JOIN Worker ON Worker.id_worker = Contract.id_worker
 JOIN Booking ON Booking.Id_contract = Contract.Id_contract
 JOIN Status_booking ON Booking.Id_status = Status_booking.Id_status
-WHERE Status_booking.Name_status = 'Отмена заказа'
+WHERE Status_booking.Name_status = 'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ'
 ORDER BY Worker.Surname

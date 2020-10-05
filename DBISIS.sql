@@ -79,9 +79,6 @@ CREATE TABLE Fiz_person
 );
 
 
-
-
-
 CREATE TABLE service
 ( 
 	id_service    serial primary key,
@@ -110,7 +107,6 @@ CREATE TABLE Status_booking
 	id_type_booking integer references type_booking(id_type_booking),
 	time_operation timestamp
 );
-
 
 CREATE TABLE Worker
 ( 

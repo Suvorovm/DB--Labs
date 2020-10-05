@@ -138,7 +138,7 @@ CREATE TABLE Disscount
 	diss_person          decimal  NULL ,
 	diss_legal           decimal  NULL
 );
-    
+
 
 CREATE TABLE Service
 (

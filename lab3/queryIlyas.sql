@@ -52,6 +52,7 @@ JOIN Worker ON Worker.id_worker = Contract.id_worker
 ORDER BY Worker.Surname
 
 --Вывод клиентов, которые отменяли бронирование и сотрудника, который заключал договор с клиентом
+
 SELECT Fiz_person.Surname || ' ' || Fiz_person.forename AS "Клиент(Физ)",
 	   UR_Person.Name_organization AS "Клиент(Юр)",
 	   Worker.Surname || ' ' ||  Worker.sorename AS "Сотрудник",
