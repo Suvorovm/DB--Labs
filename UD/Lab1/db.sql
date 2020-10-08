@@ -1,20 +1,49 @@
-drop table if exists Bilt_position;
-drop table if exists Service_for_room;
-drop table if exists Service;
-drop table if exists Disscount;
-drop table if exists Occupied_client;
-drop table if exists Booking;
-drop table if exists Contract;
-drop table if exists Status_booking;
-drop table if exists Type_booking;
-drop table if exists FeedBack;
-drop table if exists Client;
-drop table if exists UR_Person;
-drop table if exists Room;
-drop table if exists Category_room;
-drop table if exists Build;
-drop table if exists Worker;
-drop table if exists Category_room;
+
+drop table if exists feedback cascade;
+
+drop table if exists fiz_person cascade;
+
+drop table if exists ur_person cascade;
+
+drop table if exists client_booking cascade;
+
+drop table if exists booking cascade;
+
+drop table if exists status_booking cascade;
+
+drop table if exists type_booking cascade;
+
+drop table if exists contract cascade;
+
+drop table if exists client cascade;
+
+drop table if exists worker cascade;
+
+drop table if exists bilt_position_service cascade;
+
+drop table if exists bilt_position cascade;
+
+drop table if exists bill cascade;
+
+drop table if exists disscount cascade;
+
+drop table if exists service_for_room cascade;
+
+drop table if exists service cascade;
+
+drop table if exists room cascade;
+
+drop table if exists build cascade;
+
+drop table if exists category_room cascade;
+
+
+drop table if exists status_contract cascade;
+
+drop table if exists occupied_client cascade;
+
+
+
 
 CREATE TABLE Worker
 (
@@ -107,7 +136,6 @@ CREATE TABLE Contract
 	contract_number      integer  NOT NULL ,
 	start_date           timestamp  NOT NULL ,
 	end_date             timestamp  NOT NULL ,
-	duration             integer not null,
 	amount               float default(0),
 	id_status_contract   integer references  Status_contract(id_status_contract),
 	id_client            integer  references client(id_client) ,
@@ -158,5 +186,6 @@ CREATE TABLE Bilt_position
 	id_contract          integer references Contract(Id_contract),
 	id_disscount         integer  references disscount(id_disscount) ,
 	id_room              integer references room(id_room),
+	id_service           integer references service(id_service),
 	with_discount        float not null
 );
