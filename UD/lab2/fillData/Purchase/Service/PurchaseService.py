@@ -28,6 +28,7 @@ class PurchaseService(object):
     def fillBooking(self):
         countClient = self.client.getCountClients()
         countRooms= self.room.getCountRoom()
+        countService = self.getServiceCount()
         notBooked = (list(range(1, countRooms)))
         notUsedClient = (list(range(1, countClient)))
         #TODO: Тут можно сделать более адаптивно и гибко
@@ -49,6 +50,7 @@ class PurchaseService(object):
             self.fillContract(clintId, roomId, settlementTime, departeTime)
             self.fillBiltPosition( roomId, i)
             self.updateBookingContract(i)
+            self.updateBiltPosition(i, roomId)
 
     def getCountBooking(self):
         self.cursor.execute("SELECT COUNT(*) FROM booking;")
@@ -101,5 +103,14 @@ class PurchaseService(object):
     def updateBookingContract(self, idBooking):
         self.cursor.execute(
             'UPDATE  booking set id_contract = %s where id_booking = %s ', (idBooking, idBooking))
+        self.connection.commit()
+        pass
+
+    def updateBiltPosition(self, contractId, roomId):
+
+        serviceCount = self.getServiceCount()
+        self.cursor.execute('INSERT INTO Bilt_position(id_contract, id_disscount, id_service, with_discount) '
+                            'values (%s,%s,%s ,%s)',
+                            (contractId, 1,  random.randint(1, serviceCount), self.getRoomCostById(roomId)))
         self.connection.commit()
         pass
