@@ -1,4 +1,9 @@
- select * from (select  (worker.id_worker) as "id_worker",  name as "Имя",
+/*UTF-8*
+
+  Группировка по работнику и подсчет  количества контрактов заключенных работником в данным промежуок времени
+  /
+ */
+select * from (select  (worker.id_worker) as "id_worker",  name as "Имя",
                                           surname as "Фамилия",
                                           count(contract.id_worker) as "Количество заключенных контрактов"
 
