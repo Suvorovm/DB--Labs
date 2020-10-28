@@ -1,5 +1,8 @@
 
 
+CREATE DATABASE repository_hotel;
+
+
 CREATE TABLE "Booking"
 
 (
@@ -16,7 +19,7 @@ CREATE TABLE "Booking"
 
 "room_id"             INTEGER
 
-)
+);
 
 
 
@@ -34,7 +37,7 @@ CREATE TABLE "Build"
 
 "prestige"            INTEGER
 
-)
+);
 
 
 
@@ -54,7 +57,7 @@ CREATE TABLE "Category"
 
 "bed_count"           INTEGER
 
-)
+);
 
 
 
@@ -78,7 +81,7 @@ CREATE TABLE "client"
 
 "entity_id"           INTEGER
 
-)
+);
 
 
 
@@ -96,7 +99,7 @@ CREATE TABLE "Entity"
 
 "entity_id"           serial primary key
 
-)
+);
 
 
 
@@ -116,7 +119,7 @@ CREATE TABLE "HalfYear"
 
 "year_id"             INTEGER
 
-)
+);
 
 
 
@@ -136,7 +139,7 @@ CREATE TABLE "Quarter"
 
 "quarter_name"        CHARACTER(20)
 
-)
+);
 
 
 
@@ -156,7 +159,7 @@ CREATE TABLE "Room"
 
 "name_room"           CHARACTER(20)
 
-)
+);
 
 
 
@@ -178,19 +181,19 @@ CREATE TABLE "Sale_fact"
 
 "sum_with_out_nds"    INTEGER ,
 
-"build_id"            CHAR(18) ,
+"build_id"            integer references "Build",
 
-"category_id"         INTEGER ,
+"category_id"         INTEGER references "Category",
 
-"staff_id"            CHARACTER(20) ,
+"staff_id"            Integer references  "Staff",
 
-"quarter_id"          CHAR(18) ,
+"quarter_id"          Integer references  "Quarter",
 
-"room_id"             INTEGER ,
+"room_id"             integer references "Room",
 
-"client_id"           INTEGER
+"client_id"           integer references client
 
-)
+);
 
 
 
@@ -204,19 +207,19 @@ CREATE TABLE "Service_fact"
 
 "service_fact_id"    serial primary key,
 
-"quarter_id"          CHAR(18) ,
+"quarter_id"          integer references "Quarter",
 
 "sum_cost"            INTEGER NOT NULL ,
 
-"cost_with_out_nds"   CHAR(18) ,
+"cost_with_out_nds"   integer,
 
 "date_buy"            DATE ,
 
-"type_service_id"     INTEGER ,
+"type_service_id"      integer references "Type_service" ,
 
-"client_id"           INTEGER
+"client_id"           integer references client
 
-)
+);
 
 
 
@@ -238,7 +241,7 @@ CREATE TABLE "Staff"
 
 "patronymic"          CHARACTER(20)
 
-)
+);
 
 
 
@@ -256,7 +259,7 @@ CREATE TABLE "Status_booking"
 
 "name_booking"        CHARACTER(20)
 
-)
+);
 
 
 
@@ -274,7 +277,7 @@ CREATE TABLE "Type_service"
 
 "name_service"        CHARACTER(20)
 
-)
+);
 
 
 
@@ -292,4 +295,4 @@ CREATE TABLE "Year"
 
 "year_name"           CHARACTER(20)
 
-)
+);
