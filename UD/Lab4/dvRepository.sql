@@ -16,7 +16,7 @@ CREATE TABLE "Booking"
 
 "room_id"             INTEGER
 
-).
+)
 
 
 
@@ -34,7 +34,7 @@ CREATE TABLE "Build"
 
 "prestige"            INTEGER
 
-).
+)
 
 
 
@@ -54,7 +54,7 @@ CREATE TABLE "Category"
 
 "bed_count"           INTEGER
 
-).
+)
 
 
 
@@ -78,7 +78,7 @@ CREATE TABLE "client"
 
 "entity_id"           INTEGER
 
-).
+)
 
 
 
@@ -96,7 +96,7 @@ CREATE TABLE "Entity"
 
 "entity_id"           serial primary key
 
-).
+)
 
 
 
@@ -116,7 +116,7 @@ CREATE TABLE "HalfYear"
 
 "year_id"             INTEGER
 
-).
+)
 
 
 
@@ -136,7 +136,7 @@ CREATE TABLE "Quarter"
 
 "quarter_name"        CHARACTER(20)
 
-).
+)
 
 
 
@@ -156,7 +156,7 @@ CREATE TABLE "Room"
 
 "name_room"           CHARACTER(20)
 
-).
+)
 
 
 
@@ -190,7 +190,7 @@ CREATE TABLE "Sale_fact"
 
 "client_id"           INTEGER
 
-).
+)
 
 
 
@@ -216,7 +216,7 @@ CREATE TABLE "Service_fact"
 
 "client_id"           INTEGER
 
-).
+)
 
 
 
@@ -238,7 +238,7 @@ CREATE TABLE "Staff"
 
 "patronymic"          CHARACTER(20)
 
-).
+)
 
 
 
@@ -256,7 +256,7 @@ CREATE TABLE "Status_booking"
 
 "name_booking"        CHARACTER(20)
 
-).
+)
 
 
 
@@ -274,7 +274,7 @@ CREATE TABLE "Type_service"
 
 "name_service"        CHARACTER(20)
 
-).
+)
 
 
 
@@ -292,4 +292,4 @@ CREATE TABLE "Year"
 
 "year_name"           CHARACTER(20)
 
-).
+)
