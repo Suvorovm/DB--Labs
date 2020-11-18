@@ -40,7 +40,6 @@ CREATE TABLE Year
     year_id   serial primary key,
 
     year_name CHARACTER(20)
-
 );
 CREATE TABLE Status_booking
 
@@ -132,6 +131,7 @@ CREATE TABLE client
     last_name  VARCHAR(255) NOT NULL,
 
     patronymic VARCHAR(255) NOT NULL,
+    passport   varchar(12) NOT NULL,
 
     entity_id  INTEGER REFERENCES Entity
 
@@ -209,7 +209,7 @@ CREATE TABLE Type_service
 
     type_service_id serial primary key,
 
-    name_service    CHARACTER(20)
+    name_service    varchar(255)
 
 );
 
