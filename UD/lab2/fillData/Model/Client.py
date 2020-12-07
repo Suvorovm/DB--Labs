@@ -6,13 +6,13 @@ from Utils.DataRandomMaker import random_date
 
 class Client(object):
 
-
     def __init__(self, connection, constantRepo):
         """Constructor"""
         self.connection = connection
         self.cursor = connection.cursor()
         self.repository = constantRepo
         pass
+
     def fillClients(self, countRows):
         for i in range(countRows):
             addres = f'{random.choice(self.repository.city)}, {random.choice(self.repository.street)} {random.randint(1, 100)}, кв.{random.randint(1, 500)}'

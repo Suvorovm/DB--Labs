@@ -29,6 +29,11 @@ drop table if exists repo_hotel.entity cascade;
 
 drop table if exists repo_hotel.type_service cascade;
 
+drop table if exists repo_hotel.status_booking cascade;
+
+drop table if exists repo_hotel.status_contract cascade;
+
+
 
 
 
@@ -40,7 +45,6 @@ CREATE TABLE Year
     year_id   serial primary key,
 
     year_name CHARACTER(20)
-
 );
 CREATE TABLE Status_booking
 
@@ -53,6 +57,12 @@ CREATE TABLE Status_booking
 
 );
 
+
+CREATE TABLE  Status_contract (
+
+    status_contract_id serial primary key,
+    status_name varchar(50)
+);
 
 
 
@@ -132,6 +142,7 @@ CREATE TABLE client
     last_name  VARCHAR(255) NOT NULL,
 
     patronymic VARCHAR(255) NOT NULL,
+    passport   varchar(12) NOT NULL,
 
     entity_id  INTEGER REFERENCES Entity
 
@@ -209,7 +220,7 @@ CREATE TABLE Type_service
 
     type_service_id serial primary key,
 
-    name_service    CHARACTER(20)
+    name_service    varchar(255)
 
 );
 
@@ -237,8 +248,9 @@ CREATE TABLE Sale_fact
 
     room_id          INTEGER REFERENCES Room,
 
-    client_id        INTEGER REFERENCES  client
+    client_id        INTEGER REFERENCES  client,
 
+    status_contract_id INTEGER REFERENCES  Status_contract
 );
 
 
@@ -258,7 +270,7 @@ CREATE TABLE Service_fact
 
     client_id         INTEGER REFERENCES  client,
 
-    sale_fact_id      serial primary key
+    service_fact_id      serial primary key
 
 );
 

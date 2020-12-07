@@ -124,3 +124,4 @@ conn.commit()
 
 purchaseService.fillBooking()
 
+conn.close()
